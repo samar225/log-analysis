@@ -1,6 +1,8 @@
 # log analysis project
 
 this project is a required project in udacity nanodegree. It is about database and queries.
+## Download datahbase
+https://d17h27t6h515a5.cloudfront.net/topher/2016/August/57b5f748_newsdata/newsdata.zip
 
 ## run
 to run the code you first have to connect to database
@@ -11,7 +13,12 @@ then
 ```bash
 psql -d news 
 ```
-
+## Run 
+to run the code in terminal type 
+```bash
+   log-projec.py
+```
+   
 ## Questions
 
 1. What	are	the	most	popular	three	articles	of	all	time?		

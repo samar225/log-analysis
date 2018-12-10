@@ -1,66 +1,77 @@
 #! /usr/bin/env python
 import psycopg2
 import datetime
+import sys
 
 DBNAME = "news"
 
-if __name__ == '__main__':
 
-    try:
-        conn = psycopg2.connect(database=DBNAME)
-    except psycopg2.DatabaseError, e:
-        print("<error message>")
+query1 = '''select title, count(*) as views
+            from log join articles
+            on log.path = concat('/article/', articles.slug)
+            group by title
+            order by views desc
+            limit 3;'''
 
-    curr = conn.cursor()
+query2 = '''select authors.name , count (path) as sum
+            from articles
+            INNER JOIN log
+            on log.path = concat('/article/', articles.slug)
+            INNER JOIN authors
+            on articles.author = authors.id
+            group by name
+            order by sum desc limit 3;'''
 
-    curr.execute("select title, count(*) as views " +
-                 "from log join articles " +
-                 "on log.path = concat('/article/', articles.slug) " +
-                 "group by title " +
-                 "order by views desc" +
-                 " limit 3;")
+query3 = '''WITH b as 
+            (SELECT date(TIME) AS dateb,
+            COUNT(status) AS total FROM log GROUP BY dateb ),
+            a AS
+            (SELECT date(TIME) AS datea, COUNT(status) AS fail
+            FROM log
+            WHERE status NOT LIKE '200 OK' GROUP BY datea)
+           WITH b as 
+             (SELECT date(time) AS dateb,
+            COUNT(status) AS total FROM log GROUP BY dateb ),
+            a AS
+            (SELECT date(time) AS datea, COUNT(status) AS fail
+            FROM log
+            WHERE status NOT LIKE '200 OK' GROUP BY datea),
+            c as
+           (select a.datea as datee ,(100.0 * a.fail/b.total ) as per
+          from a , b
+           where a.datea = b.dateb
+           group by datea
+           ) 
+           (select * from c where c.per >1); 
+            '''
 
+
+def answer1(curr):
+
+    curr.execute(query1)
     result = curr.fetchall()
-
     print("What are the most popular three articles of all time?")
-
     for i in range(len(result)):
-
         print('"' + str(result[i][0]) + '"' + '--' +
               str(result[i][1]) + 'views')
 
     print ''
 
-    curr.execute("select authors.name , count (path) as sum" +
-                 " from articles" +
-                 " INNER JOIN log" +
-                 " on log.path = concat('/article/', articles.slug)" +
-                 " INNER JOIN authors" +
-                 " on articles.author = authors.id" +
-                 " group by name " +
-                 " order by sum desc limit 3;")
 
+def answer2(curr):
+
+    curr.execute(query2)
     result = curr.fetchall()
-
     print("What are the most popular three authors of all time?")
-
     for i in range(len(result)):
-
         print str(result[i][0]), '--', str(result[i][1]), 'views'
-
     print ''
 
-    curr.execute(" SELECT date(time) , " +
-                 "COUNT(status) as b , " +
-                 "(SELECT COUNT(status) FROM log WHERE status" +
-                 "  not like '200 OK') as  a " +
-                 "FROM log " +
-                 "where( (select (a/b)*100 from log )  >1.0 ) " +
-                 "GROUP BY date(time) , status " +
-                 "limit 1;")
 
+def answer3(curr):
+
+    curr.execute(query3)
     result = curr.fetchall()
-
     print("What are the most popular three articles of all time?")
     for i in range(len(result)):
         d = result[i][0]
@@ -77,5 +88,31 @@ if __name__ == '__main__':
 
     print ''
 
+
+def run():
+    """Running report ..."""
+    try:
+        conn = psycopg2.connect("dbname={}".format(DBNAME))
+        curr = conn.cursor()
+        print("Running reporting tools...\n")
+
+        answer1(curr)
+        print("\n")
+
+        answer2(curr)
+        print("\n")
+
+        answer3(curr)
+        print("\n")
+
+    except psycopg2.Error as err:
+        print "Unable to connect to database"
+        sys.exit(1)      # The easier method - exit the program
+
+
+if __name__ == '__main__':
+    run()
+else:
+    print 'Importing ...'
 
 conn.close()

@@ -3,12 +3,31 @@
 this project is a required project in udacity nanodegree. It is about database and queries.
 ## Requirements
 in order to run this project you need:
-1. Vagrant.[Vagrant](https://www.vagrantup.com/downloads.html) 
-2. VirtualBox.
-3. Vagrant file as provided by Udacity.
-## Download datahbase
-https://d17h27t6h515a5.cloudfront.net/topher/2016/August/57b5f748_newsdata/newsdata.zip
+1. [Vagrant](https://www.vagrantup.com/downloads.html) .
+2. [VirtualBox](https://www.virtualbox.org/wiki/Downloads).
+3. [Vagrant](https://github.com/udacity/fullstack-nanodegree-vm/blob/master/vagrant/Vagrantfile) file as provided by Udacity.
 
+## Download datahbase
+[newsdata.sql](https://d17h27t6h515a5.cloudfront.net/topher/2016/August/57b5f748_newsdata/newsdata.zip)
+### Database content 
+it contain 3 tables:
+1. artiales
+ Column |           Type           |                       Modifiers            
+--------+--------------------------+-------------------------------------------------------
+ author | integer                  | not null
+ title  | text                     | not null
+ slug   | text                     | not null
+ lead   | text                     |
+ body   | text                     |
+ time   | timestamp with time zone | default now()
+ id     | integer                  | not null default nextval('articles_id_seq'::regclass)
+
+2.author
+   1. has author name , id and bio.
+3.log 
+  1.The log table has a database row for each time a reader access a web page.
+  2.The log table includes a column status that indicates the HTTP status code
+that the news site sent to the user's browser.
 ## run
 to run the code you first have to connect to database
 ```bash

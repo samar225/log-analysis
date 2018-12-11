@@ -11,30 +11,34 @@ in order to run this project you need:
 [newsdata.sql](https://d17h27t6h515a5.cloudfront.net/topher/2016/August/57b5f748_newsdata/newsdata.zip)
 ### Database content 
 it contain 3 tables:
-1. artiales
-Column  | Type
---------| ----------
-author | integer
-title  | text
-slug   | text
-lead   | text
-body   | text
-time   | timestamp
-id     | integer
+1. articles table include:
                 
 | Column        | Type          |
 | ------------- |:-------------:|
 | author        | integer       |
 | title         | text          |
 | slug          | text          |
+| lead          | text          |
+| body          | text          |
+| time          | timestamp     |
+| id            | integer       |
 
 
-2.author
-   1. has author name , id and bio.
-3.log 
-   1.The log table has a database row for each time a reader access a web page.
-   2.The log table includes a column status that indicates the HTTP status code
-     that the news site sent to the user's browser.
+2.authors: 
+| Column        | Type          |
+| ------------- |:-------------:|
+| name          | text          |
+| bio           | text          |
+| id            | intege        |
+3.log: 
+| Column        | Type          |
+| ------------- |:-------------:|
+| path          | text          |
+| ip            | inet          |
+| method        | text          |
+| status        | text          |
+| time          | timestamp          |
+| id            | integer       |   
      
 ## run
 to run the code you first have to connect to database

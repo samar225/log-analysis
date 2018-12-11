@@ -1,6 +1,11 @@
 # log analysis project
 
 this project is a required project in udacity nanodegree. It is about database and queries.
+## Requirements
+in order to run this project you need:
+Vagrant.[Vagrant](https://www.vagrantup.com/downloads.html) 
+VirtualBox.
+Vagrant file as provided by Udacity.
 ## Download datahbase
 https://d17h27t6h515a5.cloudfront.net/topher/2016/August/57b5f748_newsdata/newsdata.zip
 

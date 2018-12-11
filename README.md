@@ -22,6 +22,12 @@ body   | text
 time   | timestamp
 id     | integer
                 
+| Column        | Type          |
+| ------------- |:-------------:|
+| author        | integer       |
+| title         | text          |
+| slug          | text          |
+
 
 2.author
    1. has author name , id and bio.

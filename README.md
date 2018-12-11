@@ -7,49 +7,6 @@ in order to run this project you need:
 2. [VirtualBox](https://www.virtualbox.org/wiki/Downloads).
 3. [Vagrant](https://github.com/udacity/fullstack-nanodegree-vm/blob/master/vagrant/Vagrantfile) file as provided by U# log analysis project
 
-this project is a required project in udacity nanodegree. It is about database and queries.
-## Requirements
-in order to run this project you need:
-1. [Vagrant](https://www.vagrantup.com/downloads.html) .
-2. [VirtualBox](https://www.virtualbox.org/wiki/Downloads).
-3. [Vagrant](https://github.com/udacity/fullstack-nanodegree-vm/blob/master/vagrant/Vagrantfile) file as provided by Udacity.
-
-## Download datahbase
-[newsdata.sql](https://d17h27t6h515a5.cloudfront.net/topher/2016/August/57b5f748_newsdata/newsdata.zip)
-### Database content 
-it contain 3 tables:
-##### articles table include:
-                
-| Column        | Type          |
-| ------------- |:-------------:|
-| author        | integer       |
-| title         | text          |
-| slug          | text          |
-| lead          | text          |
-| body          | text          |
-| time          | timestamp     |
-| id            | integer       |
-
-
-##### authors: 
-
-| Column        | Type          |
-| ------------- |:-------------:|
-| name          | text          |
-| bio           | text          |
-| id            | intege        |
-
-##### log: 
-
-| Column        | Type          |
-| ------------- |:-------------:|
-| path          | text          |
-| ip            | inet          |
-| method        | text          |
-| status        | text          |
-| time          | timestamp     |
-| id            | integer       |   dacity.
-
 ## Download datahbase
 [newsdata.sql](https://d17h27t6h515a5.cloudfront.net/topher/2016/August/57b5f748_newsdata/newsdata.zip)
 ### Database content 
@@ -89,7 +46,7 @@ it contain 3 tables:
 ## run
 to run the code you first have to open vagrant file as provided by Udacity. Then move this progect folder inside the vagrant folder then  open git bash from there and type 
 `vagrant up ` then `vagrant ssh` 
-the ` cd/vagrant` , ` cd log-analysis ` 
+the ` cd /vagrant` , ` cd log-analysis ` 
 after that connect to database
 ```bash
 psql -d news -f newsdata.sql

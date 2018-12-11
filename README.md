@@ -11,7 +11,7 @@ in order to run this project you need:
 [newsdata.sql](https://d17h27t6h515a5.cloudfront.net/topher/2016/August/57b5f748_newsdata/newsdata.zip)
 ### Database content 
 it contain 3 tables:
-1. articles table include:
+### articles table include:
                 
 | Column        | Type          |
 | ------------- |:-------------:|
@@ -24,20 +24,23 @@ it contain 3 tables:
 | id            | integer       |
 
 
-2.authors: 
+### authors: 
+
 | Column        | Type          |
 | ------------- |:-------------:|
 | name          | text          |
 | bio           | text          |
 | id            | intege        |
-3.log: 
+
+### log: 
+
 | Column        | Type          |
 | ------------- |:-------------:|
 | path          | text          |
 | ip            | inet          |
 | method        | text          |
 | status        | text          |
-| time          | timestamp          |
+| time          | timestamp     |
 | id            | integer       |   
      
 ## run

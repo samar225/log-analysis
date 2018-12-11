@@ -22,14 +22,7 @@ query2 = '''select authors.name , count (path) as sum
             group by name
             order by sum desc limit 3;'''
 
-query3 = '''WITH b as 
-            (SELECT date(TIME) AS dateb,
-            COUNT(status) AS total FROM log GROUP BY dateb ),
-            a AS
-            (SELECT date(TIME) AS datea, COUNT(status) AS fail
-            FROM log
-            WHERE status NOT LIKE '200 OK' GROUP BY datea)
-           WITH b as 
+query3 = '''WITH b as
              (SELECT date(time) AS dateb,
             COUNT(status) AS total FROM log GROUP BY dateb ),
             a AS
@@ -40,9 +33,9 @@ query3 = '''WITH b as
            (select a.datea as datee ,(100.0 * a.fail/b.total ) as per
           from a , b
            where a.datea = b.dateb
-           group by datea
-           ) 
-           (select * from c where c.per >1); 
+           group by datea, fail, total
+           )
+           (select * from c where c.per >1);
             '''
 
 
@@ -52,8 +45,8 @@ def answer1(curr):
     result = curr.fetchall()
     print("What are the most popular three articles of all time?")
     for i in range(len(result)):
-        print('"' + str(result[i][0]) + '"' + '--' +
-              str(result[i][1]) + 'views')
+        print('"' + str(result[i][0]) + '"' + ' -- ' +
+              str(result[i][1]) + ' views')
 
     print ''
 
@@ -64,7 +57,7 @@ def answer2(curr):
     result = curr.fetchall()
     print("What are the most popular three authors of all time?")
     for i in range(len(result)):
-        print str(result[i][0]), '--', str(result[i][1]), 'views'
+        print str(result[i][0]), '--', str(result[i][1]), ' views'
     print ''
 
 
@@ -72,7 +65,7 @@ def answer3(curr):
 
     curr.execute(query3)
     result = curr.fetchall()
-    print("What are the most popular three articles of all time?")
+    print("On which days did more than 1% of requests lead to errors?")
     for i in range(len(result)):
         d = result[i][0]
         s = d.strftime('%B %d,%Y')
@@ -84,7 +77,7 @@ def answer3(curr):
 
     for i in range(len(result)):
 
-        print(dd + '--' + e + '% errors')
+        print(dd + ' -- ' + e + '% errors')
 
     print ''
 
@@ -104,9 +97,11 @@ def run():
 
         answer3(curr)
         print("\n")
+        conn.close()
 
     except psycopg2.Error as err:
         print "Unable to connect to database"
+        print err
         sys.exit(1)      # The easier method - exit the program
 
 
@@ -114,5 +109,3 @@ if __name__ == '__main__':
     run()
 else:
     print 'Importing ...'
-
-conn.close()

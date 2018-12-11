@@ -11,7 +11,7 @@ in order to run this project you need:
 [newsdata.sql](https://d17h27t6h515a5.cloudfront.net/topher/2016/August/57b5f748_newsdata/newsdata.zip)
 ### Database content 
 it contain 3 tables:
-### articles table include:
+##### articles table include:
                 
 | Column        | Type          |
 | ------------- |:-------------:|
@@ -24,7 +24,7 @@ it contain 3 tables:
 | id            | integer       |
 
 
-### authors: 
+##### authors: 
 
 | Column        | Type          |
 | ------------- |:-------------:|
@@ -32,7 +32,7 @@ it contain 3 tables:
 | bio           | text          |
 | id            | intege        |
 
-### log: 
+##### log: 
 
 | Column        | Type          |
 | ------------- |:-------------:|
@@ -55,7 +55,7 @@ psql -d news
 ## Run 
 to run the code in terminal type 
 ```bash
-   log-projec.py
+   python log-projec.py
 ```
    
 ## Questions
